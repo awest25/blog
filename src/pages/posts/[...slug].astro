@@ -1,0 +1,31 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('posts')).filter((post) => !post.data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+<BaseLayout
+  title={post.data.title}
+  description={post.data.summary}
+  ogImage={`/open-graph/${post.id}.png`}
+  type="article"
+  publishedTime={post.data.publishedAt}
+>
+  <article>
+    <header class="article-header">
+      <a class="back" href="/">&larr; writing</a>
+      <h1>{post.data.title}</h1>
+      <p class="article-meta"><FormattedDate date={post.data.publishedAt} /></p>
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

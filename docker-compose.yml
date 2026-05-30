@@ -1,0 +1,13 @@
+# Blog runs as its own compose unit on the acquisition VM, mirroring the dashboard.
+# Built on the VM from this directory; served on :3001 and proxied by NPM at
+# blog.alexanderwest.com. Keystatic GitHub credentials are injected via blog.env.
+services:
+  blog:
+    build:
+      context: .
+    image: farallon-blog:latest
+    container_name: blog
+    env_file: blog.env
+    ports:
+      - "3001:3001"
+    restart: unless-stopped
