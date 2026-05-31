@@ -4,7 +4,7 @@ import { config, fields, collection } from '@keystatic/core';
 // edits write straight to src/content/posts; GitHub mode in production so the
 // deployed /keystatic admin commits to the repo via the GitHub App (phone edits).
 // Repo owner/name is overridable via env; falls back to the assumed slug.
-const repo = (process.env.KEYSTATIC_GITHUB_REPO ?? 'alexwest/blog') as `${string}/${string}`;
+const repo = (process.env.KEYSTATIC_GITHUB_REPO ?? 'awest25/blog') as `${string}/${string}`;
 
 export default config({
   storage:

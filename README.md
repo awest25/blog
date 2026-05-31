@@ -41,7 +41,7 @@ then provide these to the container via `blog.env` (never commit it):
 
 ```sh
 NODE_ENV=production
-KEYSTATIC_GITHUB_REPO=<owner>/blog
+KEYSTATIC_GITHUB_REPO=awest25/blog
 KEYSTATIC_GITHUB_CLIENT_ID=...
 KEYSTATIC_GITHUB_CLIENT_SECRET=...
 KEYSTATIC_SECRET=...                       # 64-char random hex
