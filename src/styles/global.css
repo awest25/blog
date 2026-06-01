@@ -7,12 +7,13 @@
 
 :root {
   color-scheme: light;
-  --bg: oklch(1 0 0);
-  --fg: oklch(0.18 0 0);
-  --muted: oklch(0.55 0 0);
-  --faint: oklch(0.96 0 0);
-  --border: oklch(0.9 0 0);
-  --selection: oklch(0.92 0 0);
+  /* DECISION: warm cream (not pure white) for a softer, less clinical page. */
+  --bg: oklch(0.965 0.018 85);
+  --fg: oklch(0.25 0.012 75);
+  --muted: oklch(0.52 0.014 75);
+  --faint: oklch(0.93 0.018 85);
+  --border: oklch(0.9 0.016 85);
+  --selection: oklch(0.9 0.035 85);
 
   --font-sans: 'Geist Variable', ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-serif: 'Newsreader Variable', Georgia, 'Times New Roman', serif;
@@ -25,12 +26,13 @@
 
 .dark {
   color-scheme: dark;
-  --bg: oklch(0.16 0 0);
-  --fg: oklch(0.96 0 0);
-  --muted: oklch(0.68 0 0);
-  --faint: oklch(0.27 0 0);
-  --border: oklch(1 0 0 / 0.14);
-  --selection: oklch(0.32 0 0);
+  /* DECISION: soft warm charcoal (not near-black) to pair with the cream light. */
+  --bg: oklch(0.205 0.006 75);
+  --fg: oklch(0.92 0.008 85);
+  --muted: oklch(0.7 0.01 85);
+  --faint: oklch(0.27 0.008 75);
+  --border: oklch(1 0 0 / 0.12);
+  --selection: oklch(0.33 0.012 75);
 }
 
 * {
@@ -88,10 +90,10 @@ img {
 /* ---- Header / nav ---- */
 .site-header {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: flex-end;
   gap: 1rem;
-  padding-top: 2.5rem;
+  padding-top: 2rem;
 }
 
 .site-title {
