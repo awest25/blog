@@ -5,6 +5,10 @@ services:
   blog:
     build:
       context: .
+      args:
+        # Read from the compose .env file (written by the deploy script). Astro
+        # inlines PUBLIC_ vars at build time, so the slug must be a build arg.
+        PUBLIC_KEYSTATIC_GITHUB_APP_SLUG: ${PUBLIC_KEYSTATIC_GITHUB_APP_SLUG:-}
     image: farallon-blog:latest
     container_name: blog
     env_file: blog.env

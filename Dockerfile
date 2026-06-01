@@ -13,6 +13,11 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 # Production build also switches keystatic.config.ts to GitHub storage mode.
 ENV NODE_ENV=production
+# PUBLIC_ vars are inlined by Astro at BUILD time, so the Keystatic GitHub App
+# slug (not secret) must be a build arg. Server-side secrets (client id/secret)
+# stay runtime-only via the env_file, never baked into the image.
+ARG PUBLIC_KEYSTATIC_GITHUB_APP_SLUG=""
+ENV PUBLIC_KEYSTATIC_GITHUB_APP_SLUG=$PUBLIC_KEYSTATIC_GITHUB_APP_SLUG
 RUN npm run build
 
 FROM node:22-alpine AS runner
