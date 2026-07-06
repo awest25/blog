@@ -19,13 +19,26 @@ const { Content } = await render(post);
   publishedTime={post.data.publishedAt}
 >
   <article>
-    <header class="article-header">
-      <a class="back" href="/">&larr; Alex West</a>
-      <h1>{post.data.title}</h1>
-      <p class="article-meta"><FormattedDate date={post.data.publishedAt} /></p>
+    <header class="title-block">
+      <div class="head">
+        <p class="eyebrow">Writing</p>
+        <h1>{post.data.title}</h1>
+        {post.data.summary && <p class="summary">{post.data.summary}</p>}
+      </div>
+      <div class="tb-grid">
+        <div class="tb-cell">
+          <span class="tb-label" aria-hidden="true">Author</span>
+          <span>Alexander West</span>
+        </div>
+        <div class="tb-cell">
+          <span class="tb-label" aria-hidden="true">Date</span>
+          <FormattedDate date={post.data.publishedAt} />
+        </div>
+      </div>
     </header>
     <div class="prose">
       <Content />
     </div>
+    <a class="back" href="/">&larr; Back to all posts</a>
   </article>
 </BaseLayout>

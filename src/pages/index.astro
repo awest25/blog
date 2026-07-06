@@ -2,7 +2,6 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FormattedDate from '../components/FormattedDate.astro';
-import { SITE } from '../consts';
 
 const posts = (await getCollection('posts'))
   .filter((post) => !post.data.draft)
@@ -10,18 +9,27 @@ const posts = (await getCollection('posts'))
 ---
 <BaseLayout>
   <section class="intro">
-    <h1>{SITE.title}</h1>
-    <p>{SITE.tagline}</p>
+    <p class="eyebrow">Writing</p>
+    <h1>Notes and essays</h1>
+    <p class="statement">
+      Homelab, infrastructure, and building things
+      <span class="ctx">— written down so I don't have to learn them twice.</span>
+    </p>
   </section>
 
-  <ul class="post-list">
-    {posts.map((post) => (
-      <li class="post-row">
-        <a href={`/posts/${post.id}/`}>
-          <span class="t">{post.data.title}</span>
-          <span class="d"><FormattedDate date={post.data.publishedAt} /></span>
-        </a>
-      </li>
-    ))}
-  </ul>
+  {posts.length > 0 ? (
+    <ul class="post-list">
+      {posts.map((post) => (
+        <li>
+          <a class="post-card" href={`/posts/${post.id}/`}>
+            <span class="t">{post.data.title}</span>
+            {post.data.summary && <span class="s">{post.data.summary}</span>}
+            <span class="d"><FormattedDate date={post.data.publishedAt} /></span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p class="empty">No posts yet.</p>
+  )}
 </BaseLayout>

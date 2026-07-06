@@ -1,6 +1,4 @@
 ---
-import '@fontsource-variable/geist';
-import '@fontsource-variable/newsreader';
 import '../styles/global.css';
 import ThemeToggle from '../components/ThemeToggle.astro';
 import Footer from '../components/Footer.astro';
@@ -34,6 +32,13 @@ const ogUrl = new URL(ogImage, Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,400..600&family=IBM+Plex+Mono:wght@400;500;600&family=Lora:ital,wght@0,400..600;1,400..500&display=swap"
+      rel="stylesheet"
+    />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -67,12 +72,22 @@ const ogUrl = new URL(ogImage, Astro.site);
     </script>
   </head>
   <body>
-    <header class="wrap site-header">
-      <ThemeToggle />
+    <header class="site-header">
+      <div class="bar">
+        <a href="https://alexanderwest.com" class="brand" aria-label="alexanderwest.com">
+          <span class="brand-mark" aria-hidden="true"></span>
+        </a>
+        <nav>
+          <a href="https://alexanderwest.com" class="nav-link">Home</a>
+          <a href="/" class="nav-link" aria-current="page">Blog</a>
+          <ThemeToggle />
+        </nav>
+      </div>
     </header>
     <main class="wrap">
       <slot />
     </main>
     <Footer />
+    <div class="page-bg" aria-hidden="true"></div>
   </body>
 </html>

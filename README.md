@@ -1,7 +1,10 @@
 # blog
 
 Personal blog for `blog.alexanderwest.com` — Astro (static) + Markdoc content +
-Keystatic (git-backed editor), self-hosted in the farallon homelab.
+Keystatic (git-backed editor), self-hosted in the farallon homelab. Reskinned to
+match [alexanderwest.com](https://github.com/awest25/alexanderwest.com): monochrome
+film-grain field, DM Sans / IBM Plex Mono, the AW signature mark, and the same
+header/post anatomy.
 
 ## Stack
 - **Astro 6** with the Content Layer API, Node standalone adapter.
