@@ -1,56 +1,46 @@
 # blog
 
-Personal blog for `blog.alexanderwest.com` — Astro (static) + Markdoc content +
-Keystatic (git-backed editor), self-hosted in the farallon homelab. Reskinned to
-match [alexanderwest.com](https://github.com/awest25/alexanderwest.com): monochrome
+Personal blog for `blog.alexanderwest.com`: a static Astro site with Markdown
+posts, hosted on GitHub Pages. Reskinned to match
+[alexanderwest.com](https://github.com/awest25/alexanderwest.com): monochrome
 film-grain field, DM Sans / IBM Plex Mono, the AW signature mark, and the same
 header/post anatomy.
 
 ## Stack
-- **Astro 6** with the Content Layer API, Node standalone adapter.
-- **Markdoc** posts (`src/content/posts/*.mdoc`), rendered with `@astrojs/markdoc`.
-- **Keystatic** for editing — local filesystem in dev, GitHub mode in production
-  (so the deployed `/keystatic` admin commits to this repo, including from a phone).
+- **Astro 6** with the Content Layer API, fully static output.
+- **Markdown** posts (`src/content/posts/*.md`), code highlighted by Shiki.
+- **Pages CMS** for editing in the browser, phone included (`.pages.yml`).
 - RSS (`/rss.xml`), sitemap, per-post Open Graph images (`astro-og-canvas`), and a
   light/dark theme toggle.
+
+## Writing a post
+- **In the browser:** open [app.pagescms.org](https://app.pagescms.org), sign in
+  with GitHub, and pick this repo. Saving commits the post to `main`, which
+  publishes it within a couple of minutes.
+- **By hand:** add `src/content/posts/<slug>.md` (the file name is the URL) and push:
+
+```md
+---
+title: My post
+publishedAt: 2026-10-13
+summary: One or two sentences.
+draft: false
+---
+
+The post, in Markdown.
+```
+
+`draft: true` keeps a post off the site. The frontmatter keys must match both
+`src/content.config.ts` (the schema) and `.pages.yml` (the editor's fields).
 
 ## Develop
 ```sh
 npm install
-npm run dev          # site at http://localhost:4321, editor at /keystatic
+npm run dev          # http://localhost:4321
+npm run build        # static site in dist/
 ```
-In dev, Keystatic writes posts straight to `src/content/posts/`.
-
-## Build / preview
-```sh
-npm run build
-npm run preview
-```
-
-## Content model
-Each post is one `.mdoc` file with frontmatter: `title`, `publishedAt` (YYYY-MM-DD),
-`summary`, `draft`. The body is Markdoc. Keep the frontmatter in sync with both
-`src/content.config.ts` (zod schema) and `keystatic.config.ts` (Keystatic fields).
 
 ## Deployment
-Built into a Node container (see `Dockerfile`) listening on `:3001`, deployed onto
-the acquisition VM and proxied at `blog.alexanderwest.com` by Nginx Proxy Manager
-(TLS via Let's Encrypt). Wiring lives in the `farallon-infra` repo.
-
-### Keystatic GitHub mode (production editing)
-Create a GitHub App for this repo (https://keystatic.com/docs/github-mode) with the
-OAuth callback `https://blog.alexanderwest.com/api/keystatic/github/oauth/callback`,
-then provide these to the container via `blog.env` (never commit it):
-
-```sh
-NODE_ENV=production
-KEYSTATIC_GITHUB_REPO=awest25/blog
-KEYSTATIC_GITHUB_CLIENT_ID=...
-KEYSTATIC_GITHUB_CLIENT_SECRET=...
-KEYSTATIC_SECRET=...                       # 64-char random hex
-PUBLIC_KEYSTATIC_GITHUB_APP_SLUG=...       # the GitHub App slug
-```
-
-`/keystatic` is publicly reachable but write-gated by GitHub OAuth — only
-collaborators on this repo can commit. The server never holds push credentials;
-the admin commits to GitHub directly.
+GitHub Pages. `.github/workflows/deploy.yml` builds on every push and PR, and
+deploys `dist/` from `main`. The custom domain is set in the repo's Pages
+settings, and `blog` is a `CNAME` to `awest25.github.io` at GoDaddy.

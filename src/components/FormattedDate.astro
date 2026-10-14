@@ -4,10 +4,13 @@ interface Props {
 }
 const { date } = Astro.props;
 const iso = date.toISOString();
+// Post dates are calendar days (YYYY-MM-DD), parsed as midnight UTC. Format in
+// UTC too, or a build in a timezone behind UTC shows the previous day.
 const label = date.toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'short',
   day: 'numeric',
+  timeZone: 'UTC',
 });
 ---
 <time datetime={iso}>{label}</time>

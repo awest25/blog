@@ -16,8 +16,6 @@ pnpm-debug.log*
 # environment variables
 .env
 .env.production
-# deploy-time secrets injected on the VM (Keystatic GitHub mode)
-blog.env
 
 # macOS-specific files
 .DS_Store

@@ -1,0 +1,38 @@
+# Pages CMS (https://app.pagescms.org): a web editor for this repo. Sign in
+# with GitHub and open this repo to write posts from any browser, phone
+# included. Every save is a commit to main, which republishes the site.
+# Field names must match the schema in src/content.config.ts.
+media:
+  input: public/images
+  output: /images
+content:
+  - name: posts
+    label: Posts
+    type: collection
+    path: src/content/posts
+    # The file name becomes the URL: /posts/<title-as-slug>/
+    filename: "{primary}.md"
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: publishedAt
+        label: Published date
+        type: date
+        required: true
+      - name: summary
+        label: Summary
+        description: One or two sentences, shown under the title and in link previews.
+        type: text
+      - name: draft
+        label: Draft
+        description: Drafts are saved but not shown on the site.
+        type: boolean
+        default: false
+      - name: body
+        label: Post
+        type: rich-text
+        options:
+          format: markdown
